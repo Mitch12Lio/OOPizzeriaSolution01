@@ -1,0 +1,215 @@
+﻿<Window x:Class="WPFPizzeria04.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFPizzeria04"
+        mc:Ignorable="d"
+       Title="OOPizzeria" Height="650" Width="800">
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem IsEnabled="False" Header="_File">
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Close" />
+                <MenuItem Header="_Save" />
+            </MenuItem>
+            <MenuItem IsEnabled="False" Header="_Edit">
+                <MenuItem Header="_Cut" />
+                <MenuItem Header="_Copy" />
+                <MenuItem Header="_Paste" />
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem DockPanel.Dock="Right">
+                <Grid DockPanel.Dock="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="1" FontFamily="Century Gothic" Content="MGC"></Label>
+                </Grid>
+            </StatusBarItem>
+            <StatusBarItem>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Status:"></Label>
+                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding StatusMessage}"></Label>
+                </Grid>
+            </StatusBarItem>
+        </StatusBar>
+
+        <TabControl DockPanel.Dock="Bottom">
+            <TabItem Header="Print">
+                <GroupBox BorderThickness="3">
+                    <GroupBox.Header>
+                        <Span FontWeight="DemiBold">Receipts (N/A)</Span>
+                    </GroupBox.Header>
+                    <StackPanel>
+                        <TextBox Text="{Binding GlobalLogLocation}"></TextBox>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button Grid.Row="0" Grid.Column="0" Content="Folder..." CommandParameter="GlobalLogLocation" Command="{Binding SetFolderCommand}"></Button>
+                            <Button Grid.Row="0" Grid.Column="1" Content="Open" CommandParameter="GlobalLogLocation" Command="{Binding OpenWindowsExplorerCommand}"></Button>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+        </TabControl>
+        <TabControl>
+            <TabItem Header="Pizzeria">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="0" Grid.Column="0" BorderThickness="3">
+                        <GroupBox.Header>
+                            <Span FontWeight="DemiBold">I'm Hungry!</Span>
+                        </GroupBox.Header>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Size"></Label>
+                                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding PizzaSizeLst}" DisplayMemberPath="Size" SelectedItem="{Binding SelectedPizzaSize,Mode=TwoWay}"></ComboBox>
+                                <Label Grid.Row="0" Grid.Column="0" Content="Pizza"></Label>
+                                <ComboBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding PizzaOptionsLst}" DisplayMemberPath="ShortName" SelectedItem="{Binding SelectedPizza,Mode=TwoWay}"></ComboBox>
+                                <Label Grid.Row="0" Grid.Column="2" Content="Extra (+$1 ea.)" HorizontalContentAlignment="Center"></Label>
+                                <Grid Grid.Row="1" Grid.Column="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <CheckBox IsChecked="{Binding AddBacon}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Content="Bacon"></CheckBox>
+                                    <CheckBox IsChecked="{Binding AddCheese}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Content="Double Cheese"></CheckBox>
+                                </Grid>
+                            </Grid>                          
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Grid.Row="1" Grid.Column="0" BorderThickness="3">
+                        <GroupBox.Header>
+                            <Span FontWeight="DemiBold">Order from...</Span>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button Grid.Column="0" Grid.Row="0" Content="New York Pizzeria" Command="{Binding OrderNYPizzaCommand}"></Button>
+                            <Button Grid.Column="1" Grid.Row="0" Content="Chicago Pizzeria" Command="{Binding OrderChicagoPizzaCommand}"></Button>
+                            <Button Grid.Column="2" Grid.Row="0" Content="California Pizzeria" Command="{Binding OrderCaliforniaPizzaCommand}"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Grid.Column="0" BorderThickness="3">
+                            <GroupBox.Header>
+                                <Span FontWeight="DemiBold">Status</Span>
+                            </GroupBox.Header>
+                            <ListView ItemsSource="{Binding Steps}"></ListView>
+                        </GroupBox>
+                        <GridSplitter Grid.Column="1" Grid.Row="0" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" HorizontalAlignment="Stretch" Width="3" />
+                        <GroupBox Grid.Row="0" Grid.Column="2" BorderThickness="3">
+                            <GroupBox.Header>
+                                <Span FontWeight="DemiBold">Description</Span>
+                            </GroupBox.Header>
+                            <RichTextBox Margin="10" IsReadOnly="True">
+                                <FlowDocument>
+                                    <Paragraph FontSize="14">
+                                        <Bold>New York Pizza Style:</Bold>
+                                        Mouthwatering
+                                        <Italic>Thin-Crust</Italic> pizza covered with spicy
+                                        <Italic>Marinara</Italic> sauce and buttery
+                                        <Italic>Reggiano</Italic> cheese
+                                        <Italic>Overtop</Italic> the always fresh toppings.
+                                    </Paragraph>
+                                    <Paragraph FontSize="14">
+                                        <Bold>Chicago Pizza Style:</Bold>
+                                        Tasty
+                                        <Italic>Thick-Crust</Italic> pizza covered with tangy
+                                        <Italic>Mama Rosa</Italic> sauce and delicious
+                                        <Italic>Mozzaralla</Italic> cheese
+                                        <Italic>Underneath</Italic> the always fresh toppings. Unfortunately, Hawaiian is off-limits here.
+                                    </Paragraph>
+                                    <Paragraph FontSize="14">
+                                        <Bold>California Pizza Style:</Bold>
+                                        Delectable
+                                        <Italic>Stuffed-Crust</Italic> pizza covered with sweet
+                                        <Italic>Plum Tomato</Italic> sauce and creamy
+                                        <Italic>Provolone</Italic> cheese
+                                        <Italic>Overtop</Italic> the always fresh toppings.
+                                    </Paragraph>
+                                </FlowDocument>
+                            </RichTextBox>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="S.O.L.I.D.">
+                <RichTextBox Margin="10" IsReadOnly="True">
+                    <FlowDocument>
+                        <Paragraph FontSize="14">
+                            <Bold>Single Responsibility Principle (SRP):</Bold>
+                            A class should have one, and only one, reason to change. This means a class should focus on a specific task and be responsible for only that task.
+                        </Paragraph>
+                        <Paragraph FontSize="14">
+                            <Bold>Open/Closed Principle (OCP):</Bold>
+                            Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification. This means you should be able to add new functionality without modifying existing code.
+                        </Paragraph>
+                        <Paragraph FontSize="14">
+                            <Bold>Liskov Substitution Principle (LSP):</Bold>
+                            Subtypes should be substitutable for their base types without altering the correctness of the program. In essence, a subclass should be able to replace its parent class without breaking existing functionality.
+                        </Paragraph>
+                        <Paragraph FontSize="14">
+                            <Bold>Interface Segregation Principle (ISP):</Bold>
+                            Many client-specific interfaces are better than one general-purpose interface. This principle promotes breaking down large interfaces into smaller, more specific interfaces to avoid forcing clients to implement unused methods.
+                        </Paragraph>
+                        <Paragraph FontSize="14">
+                            <Bold>Dependency Inversion Principle (DIP):</Bold>
+                            High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details. Details should depend on abstractions.
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
