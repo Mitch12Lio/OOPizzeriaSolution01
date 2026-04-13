@@ -1,14 +1,16 @@
 # OOPizzeria
-A pizzeria application focused on object oriented programming.
+A pizzeria application focused on object oriented programming.    
+  *Start up project* => **WPFPizzeria04**
 
 ## Technologies
-WPF/MVVM
-OOP Factory/Abstract pattern
+WPF/MVVM  
+OOP  
+Factory/Abstract pattern
 
 ## Description
 This solution contains two decoupled project.
-+ OOPizzeriaLib01, the pizza library.
-+ WPFOOPizzeria01, an interface to the library above.
++ OOPizzeriaLib04, the pizza library.
++ WPFOOPizzeria04, an interface to the library above.
 
 ![AppScreenShot](WPFPizzeria04/images/pizzeria50.png)
 
